@@ -1,0 +1,1098 @@
+/* ==========================================================================
+   مواقيت الصلاة — Luxury Historical Islamic Dashboard
+   Palettes: Emerald Green & Antique Gold Glassmorphism
+   ========================================================================== */
+
+:root {
+  /* Antique Gold Tones */
+  --gold-primary: #c9a227;
+  --gold-light: #f3dc88;
+  --gold-bright: #ffd966;
+  --gold-dark: #80651b;
+  --gold-border: rgba(201, 162, 39, 0.42);
+  --gold-border-subtle: rgba(201, 162, 39, 0.22);
+  --gold-glow: rgba(201, 162, 39, 0.25);
+  --gold-glow-active: rgba(229, 195, 101, 0.45);
+
+  /* Deep Emerald & Mosque Night Tones */
+  --emerald-deep: #030f0a;
+  --emerald-dark: #061912;
+  --emerald-card: rgba(8, 28, 20, 0.85);
+  --emerald-card-hover: rgba(12, 38, 28, 0.92);
+  --emerald-card-border: rgba(201, 162, 39, 0.35);
+
+  /* Cream & Contrast Accents */
+  --cream: #fbf6e6;
+  --cream-soft: #e8dfc8;
+  --text-white: #ffffff;
+  --text-muted: #b8af94;
+
+  /* Typography */
+  --font-heading: "Amiri", "Reem Kufi", serif;
+  --font-body: "Cairo", sans-serif;
+  --font-numbers: "Cairo", monospace;
+
+  /* Glass Transitions & Radius */
+  --radius-card: 16px;
+  --radius-btn: 30px;
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   RESET & GLOBAL SETUP
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  direction: rtl;
+  font-family: var(--font-body);
+  color: var(--text-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--emerald-deep);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   APP WRAPPER & BACKGROUND
+   ========================================================================== */
+
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* نمط زخرفي إسلامي هندسي خفيف فوق الخلفية */
+.app-wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      circle at center,
+      transparent 0,
+      transparent 38px,
+      rgba(201, 162, 39, 0.035) 39px,
+      rgba(201, 162, 39, 0.035) 40px,
+      transparent 41px
+    ),
+    linear-gradient(
+      45deg,
+      rgba(201, 162, 39, 0.015) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(201, 162, 39, 0.015) 75%
+    ),
+    linear-gradient(
+      -45deg,
+      rgba(201, 162, 39, 0.015) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(201, 162, 39, 0.015) 75%
+    );
+  background-size: 80px 80px, 80px 80px, 80px 80px;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   MAIN DASHBOARD CONTAINER
+   ========================================================================== */
+
+.container {
+  position: relative;
+  z-index: 2;
+  width: min(95%, 1240px);
+  margin: 0 auto;
+  padding: 30px 18px 45px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* ==========================================================================
+   1. HEADER SECTION
+   ========================================================================== */
+
+.header-section {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4px 0 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.bismillah-text {
+  font-family: var(--font-heading);
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--gold-light);
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(201, 162, 39, 0.3);
+  font-weight: 600;
+}
+
+.title-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 2px 0;
+}
+
+.title-wrap h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0;
+  background: linear-gradient(180deg, #ffffff 15%, var(--cream) 55%, var(--gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.85));
+}
+
+.title-ornament {
+  color: var(--gold-primary);
+  font-size: 16px;
+  filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.5));
+  user-select: none;
+}
+
+.subtitle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 16px;
+  background: rgba(8, 28, 20, 0.65);
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--cream-soft);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.sa-flag {
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   2. CITY SELECTOR (TOP-LEFT AREA)
+   ========================================================================== */
+
+.city-selector-wrap {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  z-index: 30;
+  width: auto;
+  min-width: 175px;
+}
+
+.select-box-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.city-icon {
+  position: absolute;
+  right: 14px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 0 4px rgba(201, 162, 39, 0.5));
+}
+
+.custom-arrow {
+  position: absolute;
+  left: 14px;
+  font-size: 12px;
+  color: var(--gold-light);
+  pointer-events: none;
+  z-index: 2;
+  transition: var(--transition-smooth);
+}
+
+.select-box-container select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 9px 38px 9px 32px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--cream);
+  background: linear-gradient(
+    135deg,
+    rgba(14, 40, 30, 0.90),
+    rgba(5, 20, 14, 0.94)
+  );
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-btn);
+  outline: none;
+  cursor: pointer;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 12px rgba(201, 162, 39, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: var(--transition-smooth);
+}
+
+.select-box-container select:hover {
+  border-color: var(--gold-primary);
+  color: #ffffff;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.55),
+    0 0 18px var(--gold-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.select-box-container select:focus {
+  border-color: var(--gold-light);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    0 0 22px rgba(201, 162, 39, 0.4);
+}
+
+.select-box-container select option {
+  background-color: #071912;
+  color: var(--cream);
+  padding: 10px;
+}
+
+/* ==========================================================================
+   3. MAIN CENTER SECTION — NEXT PRAYER (ISLAMIC ARCH / MIHRAB)
+   ========================================================================== */
+
+.next-prayer-hero {
+  grid-column: 1 / -1;
+  position: relative;
+  overflow: hidden;
+  padding: 26px 36px 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  /* شكل القوس الإسلامي / المحراب */
+  border-radius: 90px 90px 22px 22px;
+
+  /* خلفية زجاجية زمردية فاخرة */
+  background: radial-gradient(
+    ellipse at 50% 18%,
+    rgba(18, 56, 42, 0.92) 0%,
+    rgba(8, 28, 20, 0.96) 60%,
+    rgba(3, 14, 10, 0.98) 100%
+  );
+
+  border: 1px solid var(--gold-border);
+
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.65),
+    0 0 35px var(--gold-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 40px rgba(201, 162, 39, 0.05);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* إطار داخلي محفور هندسياً يمثل تجويف المحراب */
+.next-prayer-hero::after {
+  content: "";
+  position: absolute;
+  inset: 8px 10px;
+  border-radius: 82px 82px 14px 14px;
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  pointer-events: none;
+}
+
+/* تاج المحراب الإسلامي في القمة */
+.mihrab-peak-crest {
+  position: absolute;
+  top: 10px;
+  font-size: 20px;
+  color: var(--gold-light);
+  filter: drop-shadow(0 0 8px rgba(201, 162, 39, 0.6));
+  z-index: 3;
+  line-height: 1;
+}
+
+/* ترويسة المحراب: الصلاة القادمة والوقت اللحظي */
+.hero-header {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+  margin-top: 12px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(201, 162, 39, 0.14);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-btn);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-light);
+  backdrop-filter: blur(6px);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--gold-bright);
+  box-shadow: 0 0 10px var(--gold-bright);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 12px var(--gold-bright);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.35);
+    box-shadow: 0 0 4px var(--gold-bright);
+  }
+}
+
+.live-clock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(4, 18, 12, 0.75);
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: var(--radius-btn);
+  font-family: var(--font-numbers);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: 1px;
+}
+
+.clock-icon {
+  color: var(--gold-primary);
+  font-size: 13px;
+}
+
+/* محتوى المحراب: اسم الصلاة والعد التنازلي */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.next-prayer-name {
+  font-family: var(--font-heading);
+  font-size: clamp(34px, 4.5vw, 48px);
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ffffff 10%, #f7ecc4 50%, var(--gold-light) 95%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.7));
+  margin-bottom: 2px;
+}
+
+.countdown-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  color: var(--gold-light);
+  opacity: 0.95;
+  margin-top: 2px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.label-ornament {
+  font-size: 11px;
+  color: var(--gold-primary);
+}
+
+.countdown-timer {
+  font-family: var(--font-numbers);
+  font-size: clamp(44px, 6vw, 68px);
+  font-weight: 800;
+  color: #ffffff;
+  direction: ltr;
+  letter-spacing: 4px;
+  line-height: 1.1;
+  text-shadow:
+    0 0 25px rgba(243, 220, 136, 0.5),
+    0 4px 18px rgba(0, 0, 0, 0.9);
+  padding: 4px 0;
+}
+
+/* ==========================================================================
+   4. WEATHER & DATE CARDS (BALANCED, IDENTICAL HEIGHT, SAME ROW)
+   ========================================================================== */
+
+/* أنماط البطاقتين المتطابقة هندسياً */
+.date-section,
+.weather-widget {
+  min-height: 135px;
+  height: 100%;
+  align-self: stretch;
+  background: linear-gradient(
+    135deg,
+    rgba(12, 36, 26, 0.84),
+    rgba(4, 18, 12, 0.92)
+  );
+  border: 1px solid var(--emerald-card-border);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 20px rgba(201, 162, 39, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.date-section:hover,
+.weather-widget:hover {
+  border-color: rgba(201, 162, 39, 0.65);
+  box-shadow:
+    0 20px 42px rgba(0, 0, 0, 0.58),
+    0 0 20px var(--gold-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* وضع البطاقتين في نفس الصف على أجهزة سطح المكتب */
+.date-section {
+  grid-column: 1 / 2;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 18px 24px;
+}
+
+/* --- تفاصيل بطاقة التاريخ (Date Card) --- */
+.date-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.date-pill-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--gold-light);
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.date-icon {
+  font-size: 14px;
+}
+
+.date-pill-value {
+  font-family: var(--font-numbers);
+  font-size: clamp(14px, 1.3vw, 16px);
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.date-weekday {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.date-divider {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(201, 162, 39, 0.45),
+    transparent
+  );
+}
+
+.weather-widget {
+  grid-column: 2 / 3;
+  grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 20px;
+  gap: 8px;
+}
+
+/* --- تفاصيل بطاقة الطقس (Weather Card) --- */
+.weather-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-loading-text {
+  font-size: 14px;
+  color: var(--gold-light);
+  font-family: var(--font-heading);
+}
+
+/* القسم العلوي: الأيقونة ودرجة الحرارة والحالة أسفلها */
+.weather-top-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.weather-condition-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  background: transparent;
+  font-size: 48px;
+  line-height: 1;
+}
+
+.weather-icon-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+.weather-temp-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.weather-temp-val {
+  font-family: var(--font-numbers);
+  font-size: clamp(26px, 2.4vw, 32px);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.weather-desc-val {
+  font-family: var(--font-heading);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-top: 3px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* خط فاصل أفقي */
+.weather-horizontal-divider {
+  width: 85%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(201, 162, 39, 0.35),
+    transparent
+  );
+  margin: 2px 0;
+}
+
+/* القسم السفلي: الرطوبة وسرعة الرياح أفقياً */
+.weather-bottom-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.weather-sub-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.weather-sub-icon {
+  font-size: 13.5px;
+}
+
+.weather-sub-label {
+  font-family: var(--font-heading);
+  font-size: 12.5px;
+  color: var(--cream-soft);
+  opacity: 0.9;
+}
+
+.weather-sub-val {
+  font-family: var(--font-numbers);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cream);
+  direction: ltr;
+}
+
+.weather-sub-separator {
+  color: var(--gold-primary);
+  font-size: 9px;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   5. PRAYER CARDS (GRID OF 6 CARDS)
+   ========================================================================== */
+
+.prayers-list {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+/* بطاقة الصلاة مع الحفاظ الكامل على الصورة كعنصر رئيسي */
+.prayer-card {
+  height: 195px;
+  border-radius: var(--radius-card);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 10px;
+  text-align: center;
+  border: 1px solid var(--emerald-card-border);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: var(--transition-smooth);
+}
+
+/* تأثير تحويم ناعم وراقي */
+.prayer-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-primary);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.65),
+    0 0 20px var(--gold-glow);
+}
+
+/* الصلاة النشطة / القادمة */
+.prayer-card.is-active {
+  border: 2px solid #e5c365 !important;
+  box-shadow:
+    0 0 30px var(--gold-glow-active),
+    0 18px 40px rgba(0, 0, 0, 0.7),
+    inset 0 0 25px rgba(229, 195, 101, 0.15) !important;
+  transform: translateY(-6px);
+}
+
+.active-prayer-badge {
+  position: absolute;
+  top: 6px;
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.95), rgba(128, 101, 27, 0.95));
+  color: #05140d;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
+  z-index: 5;
+}
+
+/* اسم الصلاة */
+.prayer-info {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  margin-top: 10px;
+}
+
+.prayer-name-group {
+  background: rgba(5, 18, 12, 0.75);
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: 14px;
+  padding: 4px 14px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.prayer-name {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.prayer-card.is-active .prayer-name {
+  color: var(--gold-light);
+}
+
+/* وقت الصلاة */
+.prayer-time-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(4, 15, 10, 0.85);
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: 12px;
+  padding: 6px 10px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.prayer-card.is-active .prayer-time-group {
+  border-color: rgba(229, 195, 101, 0.55);
+  background: rgba(6, 22, 15, 0.92);
+}
+
+.prayer-time {
+  font-family: var(--font-numbers);
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  direction: ltr;
+  letter-spacing: 1px;
+}
+
+.prayer-period {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+
+/* حالة التحميل */
+.loading-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 40px;
+  background: var(--emerald-card);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-card);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(201, 162, 39, 0.2);
+  border-top-color: var(--gold-light);
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   6. FOOTER SECTION
+   ========================================================================== */
+
+.footer-section {
+  grid-column: 1 / -1;
+  grid-row: 5;
+  text-align: center;
+  padding: 24px 10px 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-section::before {
+  content: "";
+  display: block;
+  width: 260px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold-primary),
+    transparent
+  );
+}
+
+.quran-verse {
+  font-family: var(--font-heading);
+  font-size: clamp(16px, 1.8vw, 21px);
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(201, 162, 39, 0.25);
+}
+
+.footer-credits {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.footer-credits span {
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   7. SCROLLBAR
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020b07;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold-dark);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+
+/* ==========================================================================
+   8. RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* أجهزة اللوحي (Tablets) */
+@media (max-width: 1024px) {
+  .container {
+    width: min(96%, 980px);
+    gap: 16px;
+    padding-top: 24px;
+  }
+
+  .city-selector-wrap {
+    top: 22px;
+    left: 14px;
+  }
+
+  .prayers-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .prayer-card {
+    height: 180px;
+  }
+}
+
+/* الهواتف الذكية (Mobile) */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .container {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 20px 10px 35px;
+  }
+
+  /* تحويل محدد المدينة ليكون متناسقاً في أعلى الهاتف بدون تداخل */
+  .city-selector-wrap {
+    position: static;
+    grid-column: 1;
+    margin: 4px auto 10px;
+    width: 220px;
+  }
+
+  .next-prayer-hero {
+    grid-column: 1;
+    padding: 22px 18px 24px;
+    border-radius: 65px 65px 18px 18px;
+  }
+
+  .next-prayer-hero::after {
+    border-radius: 58px 58px 12px 12px;
+  }
+
+  .countdown-timer {
+    font-size: clamp(38px, 10vw, 48px);
+  }
+
+  /* بطاقتا التاريخ والطقس مكدستان بنفس الارتفاع والشكل الفاخر */
+  .date-section {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: 120px;
+    padding: 16px;
+  }
+
+  .weather-widget {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: 120px;
+    padding: 16px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .weather-temp-item {
+    flex: 1 1 45%;
+  }
+
+  .weather-desc-item {
+    flex: 1 1 45%;
+  }
+
+  .weather-divider {
+    display: none;
+  }
+
+  .weather-stats-group {
+    flex: 1 1 100%;
+    justify-content: space-around;
+    padding-top: 10px;
+    border-top: 1px solid rgba(201, 162, 39, 0.2);
+    margin-top: 6px;
+  }
+
+  /* بطاقات الصلاة بنظام عمودين متوازنين */
+  .prayers-list {
+    grid-column: 1;
+    grid-row: auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .prayer-card {
+    height: 175px;
+  }
+
+  .prayer-name {
+    font-size: 17px;
+  }
+
+  .prayer-time {
+    font-size: 20px;
+  }
+
+  .footer-section {
+    grid-column: 1;
+    grid-row: auto;
+    padding-top: 18px;
+  }
+}
+
+/* شاشات الجوال الصغيرة جداً */
+@media (max-width: 420px) {
+  .container {
+    width: 96%;
+    padding: 14px 6px 30px;
+  }
+
+  .next-prayer-name {
+    font-size: 28px;
+  }
+
+  .countdown-timer {
+    font-size: 34px;
+    letter-spacing: 2px;
+  }
+
+  .date-pill-value {
+    font-size: 13px;
+  }
+
+  .weather-temp-val {
+    font-size: 22px;
+  }
+
+  .prayers-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .prayer-card {
+    height: 165px;
+    padding: 10px 6px;
+  }
+}
