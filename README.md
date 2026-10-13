@@ -1,16 +1,252 @@
-# React + Vite
+# 🕌 مواقيت الصلاة - Prayer Times
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+تطبيق ويب لعرض مواقيت الصلاة حسب المدينة، مع تحديد الصلاة القادمة والعد التنازلي لها، بالإضافة إلى عرض التاريخ الهجري والميلادي وحالة الطقس الحالية.
 
-Currently, two official plugins are available:
+تم تطوير المشروع باستخدام **React** بهدف تطبيق مفاهيم React والتعامل مع APIs وتقسيم واجهة التطبيق إلى Components مستقلة.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ مميزات المشروع
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🕌 عرض مواقيت الصلاة اليومية.
+- ⏳ تحديد الصلاة القادمة.
+- 🕐 عد تنازلي للصلاة القادمة.
+- ⏰ ساعة مباشرة.
+- 📅 عرض التاريخ الهجري والميلادي.
+- 📍 إمكانية اختيار المدينة.
+- 🌤️ عرض حالة الطقس الحالية.
+- 🌡️ عرض درجة الحرارة.
+- 💧 عرض نسبة الرطوبة.
+- 💨 عرض سرعة الرياح.
+- 🌙 عرض أيقونات مناسبة لحالة الطقس ووقت اليوم.
+- 📱 تصميم متجاوب مع الجوال والكمبيوتر.
+- 🔄 تحديث البيانات تلقائيًا عند تغيير المدينة.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ التقنيات المستخدمة
+
+- **React**
+- **JavaScript**
+- **Vite**
+- **Axios**
+- **CSS**
+- **AlAdhan API**
+- **OpenWeather API**
+
+---
+
+## 📡 APIs المستخدمة
+
+### 🕌 AlAdhan API
+
+يستخدم المشروع AlAdhan API للحصول على:
+
+- مواقيت الصلاة.
+- التاريخ الهجري.
+- التاريخ الميلادي.
+
+تم استخدام:
+
+```text
+timingsByAddress
+```
+
+للحصول على مواقيت الصلاة بناءً على اسم المدينة والعنوان.
+
+---
+
+### 🌤️ OpenWeather API
+
+يستخدم المشروع OpenWeather API للحصول على بيانات الطقس، مثل:
+
+- درجة الحرارة.
+- حالة الطقس.
+- نسبة الرطوبة.
+- سرعة الرياح.
+
+---
+
+## 📂 هيكل المشروع
+
+```text
+src
+├── assets
+│
+├── Components
+│   ├── CitySelector
+│   │   └── CitySelector.jsx
+│   │
+│   ├── DateSection
+│   │   └── DateSection.jsx
+│   │
+│   ├── Footer
+│   │   └── Footer.jsx
+│   │
+│   ├── Header
+│   │   └── Header.jsx
+│   │
+│   ├── NextPrayerHero
+│   │   └── NextPrayerHero.jsx
+│   │
+│   ├── Prayer
+│   │   ├── PrayerCard.jsx
+│   │   └── PrayerList.jsx
+│   │
+│   ├── Weather
+│   │   ├── Weather.css
+│   │   └── Weather.jsx
+│   │
+│   └── indexlink.jsx
+│
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx
+```
+
+---
+
+## 🚀 تشغيل المشروع محليًا
+
+### 1. تحميل المشروع
+
+```bash
+git clone https://github.com/da7y2001-sys/Adhan.git
+```
+
+### 2. الدخول إلى مجلد المشروع
+
+```bash
+cd Adhan
+```
+
+### 3. تثبيت الحزم
+
+```bash
+npm install
+```
+
+### 4. إعداد مفتاح OpenWeather API
+
+أنشئ ملفًا باسم:
+
+```text
+.env
+```
+
+في المجلد الرئيسي للمشروع.
+
+ثم أضف:
+
+```env
+VITE_OPENWEATHER_API_KEY=YOUR_API_KEY
+```
+
+استبدل:
+
+```text
+YOUR_API_KEY
+```
+
+بمفتاح OpenWeather API الخاص بك.
+
+### 5. تشغيل المشروع
+
+```bash
+npm run dev
+```
+
+بعدها افتح رابط المشروع الذي يظهر في Terminal.
+
+---
+
+## 🔐 Environment Variables
+
+يستخدم المشروع متغير بيئة لحفظ مفتاح OpenWeather API:
+
+```env
+VITE_OPENWEATHER_API_KEY=YOUR_API_KEY
+```
+
+ملف `.env` غير مرفوع إلى GitHub ويتم تجاهله باستخدام `.gitignore`.
+
+> ملاحظة: متغيرات Vite التي تبدأ بـ `VITE_` تكون متاحة داخل تطبيق المتصفح، لذلك لا يجب وضع كلمات مرور أو أسرار حساسة خاصة بالخادم داخلها.
+
+---
+
+## ⚛️ React Concepts المستخدمة
+
+تم استخدام مجموعة من مفاهيم React الأساسية، منها:
+
+### useState
+
+لإدارة حالة التطبيق مثل:
+
+- المدينة المختارة.
+- مواقيت الصلاة.
+- حالة الطقس.
+- التاريخ.
+- الصلاة القادمة.
+- العد التنازلي.
+
+### useEffect
+
+يستخدم لتنفيذ العمليات الجانبية مثل:
+
+- جلب مواقيت الصلاة من API.
+- جلب بيانات الطقس.
+- تحديث الساعة.
+- تحديث العد التنازلي.
+
+### Components
+
+تم تقسيم التطبيق إلى Components مستقلة لتسهيل تنظيم المشروع وإعادة استخدام الأجزاء المختلفة من الواجهة.
+
+---
+
+## 📚 ما تم تطبيقه في المشروع
+
+من خلال المشروع تم تطبيق مفاهيم عملية مثل:
+
+- React Components.
+- Props.
+- `useState`.
+- `useEffect`.
+- التعامل مع APIs.
+- Axios.
+- JSON.
+- Async / Await.
+- Environment Variables.
+- التعامل مع البيانات القادمة من API.
+- Conditional Rendering.
+- تقسيم المشروع إلى Components.
+- تنظيم ملفات CSS.
+- Responsive Design.
+- Git و GitHub.
+
+---
+
+## 🎯 الهدف من المشروع
+
+الهدف من المشروع هو بناء تطبيق React عملي يجمع بين واجهة مستخدم تفاعلية والتعامل مع APIs خارجية.
+
+كما يهدف المشروع إلى تطبيق ما تم تعلمه في:
+
+**JavaScript → React → APIs → Axios → Git/GitHub**
+
+---
+
+## 👨‍💻 المطور
+
+**Abdulrahman Hadadi**
+
+Computer Science Graduate
+
+GitHub: `da7y2001-sys`
+
+---
+
+## 📌 ملاحظة
+
+هذا المشروع تم تطويره كتطبيق عملي وتجريبي لتطبيق مفاهيم تطوير الواجهات باستخدام React والتعامل مع APIs الخارجية.
